@@ -162,3 +162,108 @@ var kidsWithCandies = function (candies, extraCandies) {
 };
 
 // ################################################################################################################
+
+/*
+605. Can Place Flowers
+Easy
+Topics
+Companies
+You have a long flowerbed in which some of the plots are planted, and some are not. However, flowers cannot be planted in adjacent plots.
+
+Given an integer array flowerbed containing 0's and 1's, where 0 means empty and 1 means not empty, and an integer n, return true if n new flowers can be planted in the flowerbed without violating the no-adjacent-flowers rule and false otherwise.
+
+
+
+Example 1:
+
+Input: flowerbed = [1,0,0,0,1], n = 1
+Output: true
+Example 2:
+
+Input: flowerbed = [1,0,0,0,1], n = 2
+Output: false
+
+
+Constraints:
+
+1 <= flowerbed.length <= 2 * 104
+flowerbed[i] is 0 or 1.
+There are no two adjacent flowers in flowerbed.
+0 <= n <= flowerbed.length
+
+*/
+
+var canPlaceFlowers = function (flowerbed, n) {
+    let count = 0;
+    let len = flowerbed.length;
+
+    for (let i = 0; i < len; i++) {
+        if (flowerbed[i] === 0) {
+            // edge cases for first and last
+            let prev = i === 0 ? 0 : flowerbed[i - 1];
+            let next = i === len - 1 ? 0 : flowerbed[i + 1];
+
+            if (prev === 0 && next === 0) {
+                flowerbed[i] = 1;
+                count++;
+            }
+        }
+    }
+
+    return count >= n;
+};
+
+// ################################################################################################################
+
+/*
+
+345. Reverse Vowels of a String
+Easy
+Topics
+Companies
+Given a string s, reverse only all the vowels in the string and return it.
+
+The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+
+
+
+Example 1:
+
+Input: s = "hello"
+Output: "holle"
+Example 2:
+
+Input: s = "leetcode"
+Output: "leotcede"
+
+
+Constraints:
+
+1 <= s.length <= 3 * 105
+s consist of printable ASCII characters.
+*/
+
+var reverseVowels = function (s) {
+    const vowels = "aeiou";
+    let word = s.split("");
+
+    let front = 0;
+    let back = s.length - 1;
+
+    while (front < back) {
+        if (!vowels.includes(s[back])) {
+            back--;
+        } else if (!vowels.includes(s[front])) {
+            front++;
+        } else {
+            let temp = word[front];
+            word[front] = word[back];
+            word[back] = temp;
+            front++;
+            back--;
+        }
+    }
+    return word.join("");
+};
+
+// ################################################################################################################
