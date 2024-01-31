@@ -357,6 +357,77 @@ Follow up: Can you solve the problem in O(1) extra space complexity? (The output
 */
 
 var productExceptSelf = function (nums) {
-    
+    const length = nums.length;
+
+    const leftProduct = Array(length).fill(1);
+    const rightProduct = Array(length).fill(1);
+    const sums = Array(length);
+
+    let leftRunningProduct = 1;
+
+    // [1, 2, 3, 4]
+    for (let i = 0; i < nums.length; i++) {
+
+        leftProduct[i] = leftRunningProduct;
+        // i = 0
+        // LRP = 1
+        // first pass
+        // [1, 1, 1, 1]
+        //  x
+
+        // i = 1
+        // LRP = 1
+        //second pass
+        // [1, 1]
+        //     x
+
+        // i = 2
+        // LRP = 2
+        // third pass
+        // [1, 1, 2]
+        //        x
+
+
+        // i = 3
+        // LRP = 6
+        // third pass
+        // [1, 1, 2, 6]
+        //           x
+
+        leftRunningProduct *= nums[i];
+        // LRP = LRP * 1    1 * 1 = 1       i = 0
+        // LRP = LRP * 2    1 * 2 = 2       i = 1
+        // LRP = LRP * 3    2 * 3 = 6       i = 2
+
+        //[1, 1, 2, 6]
+
+    }
+
+    let rightRunningProduct = 1;
+    for (let i = length - 1; i >= 0; i--) {
+        rightProduct[i] = rightRunningProduct;
+        /*
+        [1] = 1
+        [4, 1] = 4
+        [12, 4, 1] = 12
+        [24, 12, 4, 1] = 24
+
+
+
+        */
+        rightRunningProduct *= nums[i];
+        // 1 * 4 = 4
+        // 4 * 3 = 12
+        // 12 * 2 = 24
+        
+        // 24 * 1 = 24
+
+    }
+
+    for (let i = 0; i < length; i++) {
+        sums[i] = leftProduct[i] * rightProduct[i];
+    }
+
+    return sums;
 };
 // ################################################################################################################
